@@ -27,29 +27,29 @@ class Group:
     course: int
     students: List[Student]
 
-    @classmethod
-    def write_groups_information(cls, groups) -> int:
-        with open("groups.pickle", "wb") as f:
-            pickle.dump(groups, f)
 
-        return max(len(g.students) for g in groups) if groups else 0
+def write_groups_information(groups: List[Group]) -> int:
+    with open("groups.pickle", "wb") as f:
+        pickle.dump(groups, f)
 
-    @classmethod
-    def write_students_information(cls, students: List[Student]) -> int:
-        with open("students.pickle", "wb") as f:
-            pickle.dump(students, f)
+    return max(len(g.students) for g in groups) if groups else 0
 
-        return len(students)
 
-    @classmethod
-    def read_groups_information(cls, groups) -> List[str]:
-        with open("groups.pickle", "rb") as f:
-            pickle.load(f)
-            names = list({g.specialty.name for g in groups})
-        return names
+def write_students_information(students: List[Student]) -> int:
+    with open("students.pickle", "wb") as f:
+        pickle.dump(students, f)
 
-    @classmethod
-    def read_students_information(cls, students: List[Student]) -> int:
-        with open("students.pickle", "rb") as f:
-            pickle.load(f)
-        return students
+    return len(students)
+
+
+def read_groups_information() -> List[str]:
+    with open("groups.pickle", "rb") as f:
+        pickle.load(f)
+        names = list({g.specialty.name for g in groups})
+    return names
+
+
+def read_students_information() -> List[Student]:
+    with open("students.pickle", "rb") as f:
+        pickle.load(f)
+    return students
